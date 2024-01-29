@@ -43,23 +43,23 @@ function binarySearchEmail(email) {
 
 function validatePassword(password) {
     if (!/(?=.*[a-z])/.test(password)) {
-        return 'Password must have  lowercase letter.';
+        return 'Password must have lowercase letter';
     }
 
     if (!/(?=.*[A-Z])/.test(password)) {
-        return 'Password must have uppercase letter.';
+        return 'Password must have uppercase letter';
     }
 
     if (!/(?=.*\d)/.test(password)) {
-        return 'Password must have number.';
+        return 'Password must have number';
     }
 
     if (!/(?=.*[@$!%*?&])/.test(password)) {
-        return 'Password must have special character.';
+        return 'Password must have special character';
     }
 
     if (password.length < 8) {
-        return 'Password must be 8 characters .';
+        return 'Password must be 8 characters';
     }
 
     return true;
@@ -75,12 +75,12 @@ app.post('/signup', (req, res) => {
 
     if (!username|| !email ||!password) {
         return res.status(200).
-            send({ message: 'Invalid details. Username, email, and password are required.' });
+            send({ message:'Invalid details. Username, email, and password are required' });
     }
 
     if (!validateEmail(email)) {
         return res.status(200).send
-            ({ message: 'Invalid email format. Please enter a valid email address.' });
+            ({ message:'Invalid email format. please enter a valid email address' });
     }
 
     const passwordValidation = validatePassword(password);
@@ -108,11 +108,12 @@ app.post('/signin', (req, res) => {
     const { email, password } = req.body;
 
     const index = binarySearchEmail(email);
-
-    if (index === -1 || password !== users[index].password) {
-        return res.status(200).send({ error: 'Invalid email or password' });
+    if (index === -1) {
+        return res.status(200).send({ message: 'Invalid Email' });
     }
-
+    if (password !== users[index].password) {
+        return res.status(200).send({ message: 'Invalid Password' });
+    }
     return res.status(200).send({ message: 'Sign-in successful' });
 });
 
