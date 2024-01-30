@@ -111,11 +111,14 @@ app.post('/signin', (req, res) => {
     if (index === -1) {
         return res.status(200).send({ message: 'Invalid Email' });
     }
+    
     if (password !== users[index].password) {
         return res.status(200).send({ message: 'Invalid Password' });
     }
+
     return res.status(200).send({ message: 'Sign-in successful' });
 });
+
 
 app.get('/users', (req, res) => {
     res.send({ users });
