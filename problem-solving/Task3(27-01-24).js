@@ -1,4 +1,5 @@
-function task3(array, target) {
+function task3(array, target) 
+{
     let index = 0;
     while (index <array.length && array[index]< target) {
         index++;
